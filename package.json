@@ -1,0 +1,23 @@
+{
+  "name": "agile-upfront-leveldb",
+  "version": "1.0.0",
+  "description": "leveldb module for upfront",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agile-iot/agile-upfront-modules.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/agile-iot/agile-upfront-modules/issues"
+  },
+  "homepage": "https://github.com/agile-iot/agile-upfront-modules#readme",
+  "dependencies": {
+    "bluebird": "^3.5.0",
+    "level": "^1.6.0"
+  }
+}
