@@ -18,6 +18,7 @@
   "homepage": "https://github.com/agile-iot/agile-upfront-modules#readme",
   "dependencies": {
     "bluebird": "^3.5.0",
-    "level": "^1.6.0"
+    "level": "^1.6.0",
+    "level-transactions": "^2.1.4"
   }
 }
