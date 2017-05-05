@@ -39,7 +39,7 @@ function init(settings) {
 function close(callback) {
   console.log("closing database object");
   if (dbHandle)
-    dbHandle.close().then(function () {
+    dbHandle.close(function () {
       dbHandle = null;
       console.log("database cleaned");
       return callback();
