@@ -8,7 +8,7 @@ var Promise = require('bluebird');
 
 module.exports = {
     init: init,
-
+    close: close,
     create: create,
     update: update,
     read: read,
