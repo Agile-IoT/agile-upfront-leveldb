@@ -34,21 +34,7 @@ function init(settings) {
         }
         resolve();
     });
-}
-
-function close(callback) {
-  console.log("closing database object");
-  if (dbHandle)
-    dbHandle.close().then(function () {
-      dbHandle = null;
-      console.log("database cleaned");
-      return callback();
-    });
-  else {
-    return callback();
-  }
-}
-
+};
 
 function read(id) {
     return new Promise(function(resolve, reject) {
