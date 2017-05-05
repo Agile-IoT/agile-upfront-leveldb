@@ -3,7 +3,7 @@ var level = require('level');
 var transaction = require('level-transactions');
 var dbHandle = null;
 var policies = null;
-
+var settings_file = null;
 var Promise = require('bluebird');
 
 module.exports = {
@@ -15,12 +15,26 @@ module.exports = {
     del: del
 };
 
+function reInit(){
+  var settings = settings_file;
+  return new Promise(function(resolve, reject) {
+       if(dbHandle){
+          resolve();
+      }
+      else{
+        console.log("reinitializing policies db! ")
+        return init(settings);
+      }
+
+  });
+}
 /**
  * Initializes the database
  *
  * @param settings the settings for the mongodb database.
  */
 function init(settings) {
+    settings_file = settings;
     var filename = settings.dbName;
     var that = this;
     //console.log("attempting to use file  "+filename + "_policies");
@@ -37,23 +51,25 @@ function init(settings) {
 }
 
 function close(callback) {
-  console.log("closing database object");
-  if (dbHandle)
-    dbHandle.close(function () {
-      dbHandle = null;
-      console.log("database cleaned");
-      return callback();
-    });
-  else {
-    return callback();
-  }
+  return new Promise(function(resolve, reject) {
+    console.log("closing database object");
+    if (dbHandle)
+      dbHandle.close(function () {
+        dbHandle = null;
+        console.log("database cleaned");
+        return resolve();
+      });
+    else {
+      return reject();
+    }
+});
 }
 
 
 function read(id) {
     return new Promise(function(resolve, reject) {
-      var tr = transaction(dbHandle);
-
+      reInit().then(function(){
+        var tr = transaction(dbHandle);
         tr.get(id, function (error, policy) {
               if (error && error.notFound){
                 tr.commit(function(){
@@ -82,13 +98,15 @@ function read(id) {
                   reject(new Error("unknown error while reading policy. error "+JSON.stringify(error)+" policy "+JSON.stringify(policy)));
                 });
               }
-        });
-    });
-};
+            });
+          });
+      });
+}
 
 function create(id, policy) {
     //console.log("creating id "+id+" policy "+JSON.stringify(policy));
     return new Promise(function(resolve, reject) {
+      reInit().then(function(){
        var tr = transaction(dbHandle);
         var ret=  { _id: id, pO : policy, t:1};
         tr.put(id,ret,function (error) {
@@ -104,6 +122,7 @@ function create(id, policy) {
 
           }
         });
+      });
     });
 };
 
@@ -111,6 +130,7 @@ function update(id, policy, uid) {
 
   //normally uid should be checked to match t.
   return new Promise(function(resolve, reject) {
+    reInit().then(function(){
     var tr = transaction(dbHandle);
     //console.log("creating id "+id+" policy "+JSON.stringify(policy));
       var ret=  { _id: id, pO : policy, t:1};
@@ -128,11 +148,14 @@ function update(id, policy, uid) {
         }
       });
   });
+});
 };
 
 function del(id) {
 
     return new Promise(function(resolve, reject) {
+      reInit().then(function(){
+
       var tr = transaction(dbHandle);
       tr.get(id, function (error, data) {
             if (error && error.notFound){
@@ -173,6 +196,7 @@ function del(id) {
             }
 
       });
+    });
    });
 
 };
