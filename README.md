@@ -6,7 +6,7 @@ Modules for the UpFront farmework
 Do the following to test the default upfront example with this storage module:
 
 ```
-git clone https://github.com/SEDARI/UPFROnt/
+git clone https://github.com/nopbyte/UPFROnt/#frozen-in-time
 git clone https://github.com/Agile-IoT/agile-upfront-leveldb
 cd UPFROnt
 git checkout 9cdcc2b941a09f11e92f90507b1cab9d2a9d4f42
