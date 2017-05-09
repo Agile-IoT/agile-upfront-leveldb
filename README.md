@@ -15,4 +15,14 @@ mv ../agile-upfront-leveldb/example/settings.js ./example/online/settings.js
 npm install
 cd ./example/online/
 node index.js
+
 ```
+
+#Debug mode
+
+To debug this component (storage only) do:
+
+```
+export DEBUG_POLICY_STORE=1
+```
+
