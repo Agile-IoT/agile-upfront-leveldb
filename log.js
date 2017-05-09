@@ -8,11 +8,11 @@ function getLog() {
     log = {
       log: function (string) {
         if (!silent)
-          console.log("log info in agile-idm-core: " + string);
+          console.log("log info in agile-upfront-leveldb: " + string);
       },
       debug: function (string) {
         if (!silent)
-          console.log("debug info in agile-idm-core: " + string);
+          console.log("debug info in agile-uptront-leveldb: " + string);
       },
     };
     return log;
