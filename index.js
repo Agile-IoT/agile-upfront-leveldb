@@ -5,7 +5,7 @@ var dbHandle = null;
 var policies = null;
 var settings_file = null;
 var Promise = require('bluebird');
-var console = require('log');
+var console = require('./log');
 
 module.exports = {
     init: init,
